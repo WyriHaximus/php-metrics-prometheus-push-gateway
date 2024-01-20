@@ -1,0 +1,53 @@
+{
+    "name": "wyrihaximus/metrics-prometheus-push-gateway",
+    "description": "\ud83d\udd75\ufe0f\u200d\u2640\ufe0f Prometheus modelled metric VO's and registry",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cees-Jan Kiewiet",
+            "email": "ceesjank@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "nyholm/psr7": "^1.8",
+        "psr/http-client": "^1",
+        "psr/http-client-implementation": "^1",
+        "wyrihaximus/metrics": "^2.1"
+    },
+    "require-dev": {
+        "php-http/mock-client": "^1.6",
+        "wyrihaximus/test-utilities": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "WyriHaximus\\Metrics\\PrometheusPushGateway\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\Tests\\Metrics\\PrometheusPushGateway\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true,
+            "icanhazstring/composer-unused": true,
+            "infection/extension-installer": true,
+            "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.2.13"
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer normalize"
+        ],
+        "post-update-cmd": [
+            "composer normalize"
+        ]
+    }
+}

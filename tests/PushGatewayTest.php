@@ -5,16 +5,21 @@ declare(strict_types=1);
 namespace WyriHaximus\Tests\PrometheusPushGateway;
 
 use Http\Mock\Client;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 use WyriHaximus\Metrics\Factory;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Label\Name;
 use WyriHaximus\Metrics\PrometheusPushGateway\Method;
 use WyriHaximus\Metrics\PrometheusPushGateway\PushGateway;
 
+#[AllowMockObjectsWithoutExpectations]
 final class PushGatewayTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function delete(): void
     {
         $registry = Factory::create();
@@ -29,6 +34,7 @@ final class PushGatewayTest extends TestCase
         $pushGateway->delete('steven');
 
         $lastRequest = $client->getLastRequest();
+        self::assertInstanceOf(RequestInterface::class, $lastRequest);
 
         self::assertSame('https://example.com/metrics/job/steven', (string) $lastRequest->getUri());
         self::assertSame(['text/plain'], $lastRequest->getHeader('Content-Type'));
@@ -36,10 +42,8 @@ final class PushGatewayTest extends TestCase
         self::assertSame('', $lastRequest->getBody()->getContents());
     }
 
-    /**
-     * @test
-     * @dataProvider writeProvider
-     */
+    #[Test]
+    #[DataProvider('writeProvider')]
     public function write(string $method, Method $httpMethod): void
     {
         $registry = Factory::create();
@@ -55,6 +59,7 @@ final class PushGatewayTest extends TestCase
         $pushGateway->$method('steven');
 
         $lastRequest = $client->getLastRequest();
+        self::assertInstanceOf(RequestInterface::class, $lastRequest);
 
         self::assertSame($httpMethod->value, $lastRequest->getMethod());
         self::assertSame('https://example.com/metrics/job/steven', (string) $lastRequest->getUri());
@@ -67,7 +72,7 @@ final class PushGatewayTest extends TestCase
     }
 
     /** @return iterable<array<string|Method>> */
-    public function writeProvider(): iterable
+    public static function writeProvider(): iterable
     {
         yield 'put' => ['put', Method::PUT];
         yield 'post' => ['post', Method::POST];

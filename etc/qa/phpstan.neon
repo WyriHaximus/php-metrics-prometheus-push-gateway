@@ -1,9 +1,10 @@
 parameters:
+	paths:
+		- ../../etc
+		- ../../src
+		- ../../tests
 	level: max
 	ergebnis:
 		noExtends:
 			classesAllowedToBeExtended:
 				- InvalidArgumentException
-
-includes:
-	- ../../vendor/wyrihaximus/test-utilities/rules.neon

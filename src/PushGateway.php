@@ -11,6 +11,7 @@ use WyriHaximus\Metrics\Registry;
 
 use function rtrim;
 
+/** @api */
 final readonly class PushGateway
 {
     private string $uri;

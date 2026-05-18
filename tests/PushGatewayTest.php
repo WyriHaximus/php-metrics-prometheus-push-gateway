@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WyriHaximus\Tests\PrometheusPushGateway;
+namespace WyriHaximus\Tests\Metrics\PrometheusPushGateway;
 
 use Http\Mock\Client;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
@@ -55,8 +55,15 @@ final class PushGatewayTest extends TestCase
             'https://example.com/',
         );
 
-        /** @phpstan-ignore-next-line */
-        $pushGateway->$method('steven');
+        /** @phpstan-ignore ergebnis.noSwitch */
+        switch ($method) {
+            case 'put':
+                $pushGateway->put('steven');
+                break;
+            case 'post':
+                $pushGateway->post('steven');
+                break;
+        }
 
         $lastRequest = $client->getLastRequest();
         self::assertInstanceOf(RequestInterface::class, $lastRequest);

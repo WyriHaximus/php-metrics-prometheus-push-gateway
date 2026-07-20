@@ -17,8 +17,8 @@
   },
   "require-dev": {
     "php-http/mock-client": "^1.6",
-    "wyrihaximus/makefiles": "^0.12.3",
-    "wyrihaximus/test-utilities": "^13.3.0"
+    "wyrihaximus/makefiles": "^0.13.2",
+    "wyrihaximus/test-utilities": "^13.4.0"
   },
   "autoload": {
     "psr-4": {

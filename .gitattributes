@@ -18,6 +18,7 @@
 .github/ export-ignore
 etc/ci/ export-ignore
 etc/dev-app/ export-ignore
+etc/state/ export-ignore
 etc/qa/ export-ignore
 examples/ export-ignore
 tests/ export-ignore
@@ -33,3 +34,6 @@ README.md export-ignore
 
 # Diffing
 *.php diff=php
+*.yaml diff=yaml
+*.yml diff=yaml
+*.json5 diff=json
